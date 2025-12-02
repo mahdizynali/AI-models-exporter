@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}")
 
 project(AIModelsExporter
     VERSION 0.1.0
@@ -33,23 +34,15 @@ target_include_directories(export
 
 # ==============================
 if (ALL_ENGINES)
+    include(TRT/TensorRT)
     target_compile_definitions(export PRIVATE ALL_ENGINES)
+    message(STATUS "Building with ALL_ENGINES support")
 elseif (ENGINE_ONNX_TO_TRT)
+    include(TRT/TensorRT)
     target_compile_definitions(export PRIVATE ENGINE_ONNX_TO_TRT)
+    message(STATUS "Building with ENGINE_ONNX_TO_TRT support")
 elseif (ENGINE_TRT_TO_ONNX)
+    include(TRT/TensorRT)
     target_compile_definitions(export PRIVATE ENGINE_TRT_TO_ONNX)
+    message(STATUS "Building with ENGINE_TRT_TO_ONNX support")
 endif()
-
-# ==============================
-# TensorRT / ONNX libraries (optional, placeholder)
-# ==============================
-# If you have TensorRT installed, you can add something like:
-#
-# find_path(TENSORRT_INCLUDE_DIR NvInfer.h HINTS /usr/include /usr/local/include)
-# find_library(TENSORRT_LIB nvinfer HINTS /usr/lib /usr/local/lib)
-# find_library(TENSORRT_PARSER_LIB nvonnxparser HINTS /usr/lib /usr/local/lib)
-#
-# target_include_directories(export PRIVATE ${TENSORRT_INCLUDE_DIR})
-# target_link_libraries(export PRIVATE ${TENSORRT_LIB} ${TENSORRT_PARSER_LIB})
-#
-# Adjust paths/names as needed for your system.
