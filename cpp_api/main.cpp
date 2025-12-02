@@ -24,12 +24,12 @@ int main(int argc, char* argv[]) {
 
     switch (engine_type) {
         case 0 : {
-            Converter cvt(engine::ONNX_to_TRT, argv[2], argv[3]);
+            Converter cvt(EngineType::ONNX_to_TRT, argv[2], argv[3]);
             cvt.run();
             break;
         }
         case 1 : {
-            Converter cvt(engine::TRT_to_ONNX, argv[2], argv[3]);
+            Converter cvt(EngineType::TRT_to_ONNX, argv[2], argv[3]);
             cvt.run();
             break;
         }
